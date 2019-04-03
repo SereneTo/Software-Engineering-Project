@@ -2,14 +2,14 @@ import java.io.Serializable;
 
 public class Student implements Serializable{
 
-  String QMNum="161194886";
-  String name;
-  String email;
-  int currentTime=0;
-  int totalTime=0;
-  boolean differentDay=false;
-  int dataMonth;
-  int dataDay;
+  private String QMNum="161194886";
+  private String name;
+  private String email;
+  private int currentTime=0;
+  private int totalTime=0;
+  private boolean differentDay=false;
+  private int dataMonth=0;
+  private int dataDay=0;
 
   public Student(){
 
@@ -69,6 +69,13 @@ public class Student implements Serializable{
     return this.differentDay;
   }
 
+  public boolean getDifferentDay(int dataMonth, int dataDay){
+    if(this.dataMonth==dataMonth  &&  this.dataDay==dataDay)
+      return false;
+    else
+      return true;
+  }
+
   public void setDataMonth(int dataMonth){
     this.dataMonth=dataMonth;
   }
@@ -82,6 +89,6 @@ public class Student implements Serializable{
   }
 
   public int getDataDay(){
-    return this. dataDay;
+    return this.dataDay;
   }
 }

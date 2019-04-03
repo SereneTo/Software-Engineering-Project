@@ -11,18 +11,18 @@ import java.util.Calendar;
 
 public class IOTest{
 
-static ParkingLot QM=new ParkingLot(8,8,8);
-static ParkingLot QM1=new ParkingLot(); //用于传递qm 操作时对qm1操作
+public static ParkingLot QM=new ParkingLot(8,8,8);
+public static ParkingLot QM1=new ParkingLot(); //用于传递qm 操作时对qm1操作
 
-static Calendar calendar=Calendar.getInstance();
-static int month =calendar.get(Calendar.MONTH);
-static int date =calendar.get(Calendar.DATE);
-static int hour = calendar.get(Calendar.HOUR_OF_DAY);
-static int minute = calendar.get(Calendar.MINUTE);
-static int time=((month*30+date)*24+hour)*60+minute;
+public static Calendar calendar=Calendar.getInstance();
+public static int month =calendar.get(Calendar.MONTH);
+public static int date =calendar.get(Calendar.DATE);
+public static int hour = calendar.get(Calendar.HOUR_OF_DAY);
+public static int minute = calendar.get(Calendar.MINUTE);
+public static int time=((month*30+date)*24+hour)*60+minute;
 
-static Student student= new Student("161194886","Zeyuan Dong","Dongzeyuan@bupt.edu.cn");
-static Student student1=new Student();
+public static Student student= new Student("161194886","Zeyuan Dong","Dongzeyuan@bupt.edu.cn");
+public static Student student1=new Student();
 
 
 
@@ -51,9 +51,9 @@ static Student student1=new Student();
      System.out.println(student.getDifferentDay());
      student1=student;
    }catch(IOException e){
-     File file1=new File("/Users/dongzeyuan1/Desktop/"+student1.getQMNum());
-     file1.createNewFile();
-     System.out.println("The txt file "+student1.getQMNum()+".txt is created!");
+  //   File file1=new File("/Users/dongzeyuan1/Desktop/"+student1.getQMNum());
+  //   file1.createNewFile();
+  //   System.out.println("The txt file "+student1.getQMNum()+".txt is created!");
      e.printStackTrace();
     }
    }
@@ -80,9 +80,9 @@ static Student student1=new Student();
 
    public static void output(){
     // ParkingLot QM1=new ParkingLot(8,8,8); //该行用于重置
-      QM1.takeBikeFromA();
-      QM1.returnBikeToB();
-      QM1.getBikeOnTheWay();
+    //QM1.takeBikeFromA();
+    //QM1.returnBikeToB();
+    //QM1.getBikeOnTheWay();
       QM=QM1;
 
       try{
@@ -110,14 +110,55 @@ static Student student1=new Student();
 
      ParkingLot QM=(ParkingLot)iis.readObject();
      iis.close();
-     System.out.println(QM.getBikeInA());
-     System.out.println(QM.getBikeInB());
-     System.out.println(QM.getBikeOnTheWay());
+     //System.out.println(QM.getBikeInA());
+     //System.out.println(QM.getBikeInB());
+     //System.out.println(QM.getBikeOnTheWay());
      QM1=QM;
    }catch(IOException e){
      e.printStackTrace();
    }
 }
+
+
+
+
+//从A地借车，并储存借车信息。成功借车返回1，A地无车返回0，输入为QMNum的字符串
+  public static int borrowBikeFromA(){
+    try{
+      input();
+    }catch(ClassNotFoundException | IOException e){
+    e.printStackTrace();
+    }
+
+    if(QM1.getBikeInA()<=0){
+      return 0;
+    }
+    else{
+      QM1.takeBikeFromA();
+      output();
+      getStudentDataFromChart();
+      try{
+        studentInput();
+      }catch(ClassNotFoundException | IOException e){
+      e.printStackTrace();
+      }
+      student1.setCurrentTime(time);
+
+      if(student1.getDifferentDay(month,date)==false){
+
+      }
+      else{
+        student1.setDataMonth(month);
+        student1.setDataDay(date);
+        student1.setTotalTime(0);
+      }
+      studentOutput();
+      return 1;
+    }
+  }
+
+
+
 
 
 
@@ -142,8 +183,9 @@ static Student student1=new Student();
     e.printStackTrace();
     }
     */
+    int a;
 
-
+    a=borrowBikeFromA();
 
     System.out.println( month+" "+date+" "+hour+" "+minute+" "+time);
 
@@ -155,8 +197,13 @@ static Student student1=new Student();
     e.printStackTrace();
     }
 
-    getStudentDataFromChart();
-    studentOutput();
+    System.out.println(student1.getDifferentDay());
+    System.out.println(student1.getCurrentTime());
+    System.out.println(student1.getTotalTime());
+    System.out.println(student1.getDataMonth());
+    System.out.println(student1.getDataDay());
+    System.out.println(QM1.getBikeInA());
+    System.out.println(a);
 
   }
 }

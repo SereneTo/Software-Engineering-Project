@@ -2,9 +2,9 @@ import java.io.Serializable;
 
 public class ParkingLot implements Serializable{
 
-    int parkingNumInA;
-    int parkingNumInB;
-    int parkingNumInC;
+  private  int parkingNumInA;
+  private  int parkingNumInB;
+  private  int parkingNumInC;
 
     int bikeOnTheWay;
 
